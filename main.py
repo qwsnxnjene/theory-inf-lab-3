@@ -44,8 +44,10 @@ def huffman_encoding(text):
     if not text:
         return "", {}
 
-    freq_dict = defaultdict(int)
+    freq_dict = dict()
     for char in text:
+        if char not in freq_dict:
+            freq_dict[char] = 0
         freq_dict[char] += 1
 
     root = build_huffman_tree(freq_dict)
@@ -67,7 +69,11 @@ def huffman_decoding(encoded_text, codes):
     for bit in encoded_text:
         current_code += bit
         if current_code in reverse_codes:
-            decoded_text += reverse_codes[current_code]
+            char = reverse_codes[current_code]
+            decoded_text += char
             current_code = ""
 
     return decoded_text
+
+
+
